@@ -15,7 +15,7 @@ jobs:
     - name: Build DAR package
       run: |
         mkdir dar-content
-        cp manifest/test_app.xml dar-content/
+        cp manifest/test_app.xml dar-content/deployit-manifest.xml
         cp -r src/TAPTest-files/HelloWorld.zip/* dar-content/
         cd dar-content
         zip -r ../my-app.dar .
