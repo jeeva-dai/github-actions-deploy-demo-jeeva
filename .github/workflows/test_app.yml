@@ -1,4 +1,4 @@
-name: Upload Dar Package
+name: Uploading Dar Package
 
 on:
   workflow_dispatch:
