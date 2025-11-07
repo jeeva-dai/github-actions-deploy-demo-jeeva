@@ -23,8 +23,8 @@ jobs:
 
     - uses: digital-ai/github-actions-deploy@v4.0.0
       with:
-        xldeploy_url: ${{ vars.SERVERURL }}
-        xldeploy_username: ${{ secrets.USERNAME }}
-        xldeploy_password: ${{ secrets.PASSWORD }}
+        serverUrl: ${{ vars.SERVERURL }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
         action: 'publish'
         package: my-app.dar
