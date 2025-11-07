@@ -26,4 +26,5 @@ jobs:
         xldeploy_url: ${{ vars.SERVERURL }}
         xldeploy_username: ${{ secrets.USERNAME }}
         xldeploy_password: ${{ secrets.PASSWORD }}
+        action: 'publish'
         package: my-app.dar
