@@ -16,7 +16,7 @@ jobs:
       run: |
         mkdir dar-content
         cp manifest/test_app.xml dar-content/deployit-manifest.xml
-        cp -r src/* dar-content/
+        cp -r src/TAPTest-files dar-content/
         cd dar-content
         zip -r ../my-app.dar .
         cd ..
