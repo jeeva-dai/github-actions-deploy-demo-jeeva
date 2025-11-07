@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Upload Dar Package
 
 on:
   workflow_dispatch:
