@@ -27,4 +27,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         action: 'publish'
+        darPackagePath: ./my-app.dar
         package: my-app.dar
