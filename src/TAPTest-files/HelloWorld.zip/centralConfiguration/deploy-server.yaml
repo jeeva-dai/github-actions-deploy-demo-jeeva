@@ -1,0 +1,87 @@
+deploy.server:
+  bind-hostname: "0.0.0.0"
+  label:
+  events:
+    time-to-live: "5 minutes"
+    cis-changed-queue-name: "xld-cis-changed"
+  ssl:
+    enabled: false
+    key-store: "keystore"
+    key-password: "changeme"
+    key-store-password: "changeme"
+    trust-store: "truststore"
+    trust-store-password: "changeme"
+    protocol: "TLSv1.2"
+    enabled-algorithms: ["TLS_RSA_WITH_AES_128_CBC_SHA"]
+    random-number-generator: ""
+  session:
+    active-user-sessions-enabled: true
+    cleanup-cron: "0 0/20 * * * *"
+    maximumSessions: -1
+    exceptionIfMaximumExceeded: false
+  aggregation-timeout: "5 seconds"
+  license:
+    days-before-warning: 5
+    endpoint: "https://download.xebialabs.com/"
+    kind: byol
+    ami:
+      product-code: ~
+    aws:
+      product-code: ~
+      public-key-version: ~
+      public-key:  ~
+  downloads:
+    export-root: "export"
+  security:
+    auth:
+      provider: "default"
+  algorithms:
+    checksum: "SHA-256"
+  patch-dictionaries:
+    max-file-size-mb: 5
+  rest:
+    api:
+      maxPageSize: 1000
+  config:
+    refresh:
+      initial-delay: 120000
+      fixed-delay: 60000
+  export-cis:
+    export-dir: "export"
+    import-work-dir: "work"
+  extensions:
+    ui:
+      file: "xl-ui-plugin.xml"
+    server:
+      file: "xl-rest-endpoints.xml"
+      timeout: 60 seconds
+      rootPath: "/api"
+      scriptsPathPrefix: "/extension"
+  placeholders:
+    archive: false
+  analytics:
+    pendoQueueSize: 1000
+    pendoMetricsCron: "0 0 1 * * *"
+  http:
+    allowed-hosts:
+      enabled: false
+      hostnames: []
+    gzip:
+      enabled: true
+      minSize: 10
+      compression: 4
+      excludedPaths: []
+  supportPackageSettings:
+    canDownloadAppDependencies: false
+    canDownloadTopDeployedApps: true
+    canDownloadEnvironments: true
+    canDownloadDescriptors: true
+  sni-check-enabled: true
+pekko:
+  io:
+    dns:
+      resolver: "async-dns"
+  # loggers:
+  #  - "org.apache.pekko.event.slf4j.Slf4jLogger"
+  loglevel: "INFO"
+

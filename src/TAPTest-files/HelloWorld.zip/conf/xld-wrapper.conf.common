@@ -1,0 +1,52 @@
+# YAJSW configuration properties.
+# Documentation: http://yajsw.sourceforge.net/YAJSW%20Configuration%20Parameters.html
+
+# WARNING - Do not modify any of the properties when an application
+#  using this configuration file has been installed as a service or daemon.
+#  Please uninstall the service before modifying this file.  The
+#  service must then be reinstalled.
+
+# This is a common configuration file used to run YAJSW on both Linux and Windows
+wrapper.working.dir=${xldeploy_home}
+wrapper.tmp.path = ${jna_tmpdir}
+wrapper.startup.timeout=60
+
+wrapper.console.loglevel=FATAL
+
+wrapper.logfile=${xldeploy_home}/log/wrapper.log
+wrapper.logfile.maxsize=10m
+wrapper.logfile.maxfiles=10
+
+wrapper.ntservice.additional.1=-Xmx20m
+wrapper.ntservice.additional.2=-server
+
+wrapper.java.command=/usr/lib/jvm/java-17-openjdk-17.0.16.0.8-2.el9.x86_64/bin/java
+
+# The following values should not contain trailing and leading whitespaces
+wrapper.java.classpath.1=conf
+wrapper.java.classpath.2=hotfix/lib/*
+wrapper.java.classpath.3=lib/*
+
+# !!Note the typo, see https://github.com/yajsw/yajsw/blob/master/src/yajsw/src/main/java/org/rzo/yajsw/wrapper/WrappedJavaProcess.java#L449
+wrapper.java.app.relativize_classpath=true
+
+wrapper.java.additional.1=-Xmx2048m
+wrapper.java.additional.2=-Dlogback.c​onfigurationFile=conf/logback.xml
+wrapper.java.additional.3=-Dderby.stream.error.file=log/derby.log
+
+wrapper.java.additional.4=-Djava.security.manager=java.lang.SecurityManager
+wrapper.java.additional.5=-Djava.security.policy=conf/xl-deploy.policy
+
+wrapper.java.additional.6=-XX:+UseParallelGC
+wrapper.java.additional.7=-Dfile.encoding=UTF-8
+wrapper.app.parameter.1=-plugin-source=filesystem
+
+# Uncomment the line below when enabling JMX monitoring (deploy.jmx.enabled) to capture performance metrics on the task engine.
+#wrapper.java.additional.8=-javaagent:lib/aspectjweaver-1.9.6.jar
+wrapper.java.additional.8=--add-opens=java.base/java.util=ALL-UNNAMED
+wrapper.java.additional.9=--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED
+wrapper.java.additional.10=--add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+wrapper.java.additional.11=--add-opens=java.base/java.io=ALL-UNNAMED
+wrapper.java.additional.12=--add-opens=java.base/java.lang=ALL-UNNAMED
+wrapper.java.additional.13=--add-opens=java.base/java.text=ALL-UNNAMED
+wrapper.java.additional.14=-Djava.security.properties=conf/security.properties

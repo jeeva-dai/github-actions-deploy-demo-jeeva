@@ -1,0 +1,144 @@
+<!--
+    Note: If you modify this file, you must restart the XL Deploy server.
+-->
+<configuration>
+
+    <!-- removing this listener may cause performance issues-->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <!-- ConsoleAppender to be use only for development purposes - not recommended for cloud or service deployments
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] {%mdc} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/${LOGFILE:-deployit}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>log/${LOGFILE:-deployit}.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] {%mdc} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <!-- ConsoleAppender to be use only for development purposes - not recommended for cloud or service deployments
+        <appender-ref ref="STDOUT" />
+        -->
+        <appender-ref ref="FILE" />
+    </root>
+
+    <logger name="ai.digital.deploy" level="info"/>
+    <logger name="com.xebialabs" level="info" />
+    <logger name="com.xebialabs.deployit.metrics" level="off"/>
+    <logger name="com.xebialabs.deployit.core.api.resteasy.http" level="info" />
+    <logger name="com.xebialabs.deployit.jetty.HttpHeaderOverrideServletRequest" level="info" />
+    <logger name="com.xebialabs.deployit.jetty.FlexRestCompatibilityServletRequest" level="info" />
+    <logger name="com.xebialabs.deployit.migration" level="info" />
+    <logger name="com.xebialabs.overthere" level="info" />
+    <logger name="net.schmizz.sshj" level="error" />
+    <logger name="org.springframework" level="warn"/>
+    <logger name="org.apache.commons.httpclient" level="warn" />
+    <logger name="org.apache.jackrabbit.core.value.BLOBInDataStore" level="error" />
+    <logger name="org.eclipse.aether" level="info" />
+    <logger name="de.schlichtherle.truezip" level="warn" />
+    <logger name="com.google.inject.internal.util" level="error" />
+    <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="error" />
+    <logger name="liquibase" level="warn" />
+    <logger name="org.springframework.web.socket.adapter.jetty.JettyWebSocketHandlerAdapter" level="off"/>
+    <logger name="org.apache.activemq.artemis" level="warn" />
+    <logger name="org.apache.activemq.audit" level="warn" />
+    <logger name="org.springframework.retry" level="error" />
+    <logger name="org.jboss.windup.decompiler" level="error" />
+
+    <!--  Audit logging -->
+
+    <appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/audit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/audit.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="audit" level="info" additivity="false">
+        <appender-ref ref="AUDIT" />
+    </logger>
+
+    <appender name="METRICS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/metrics.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/metrics.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.xebialabs.deployit.metrics.ExecutionTime" level="debug" additivity="false">
+        <appender-ref ref="METRICS"/>
+    </logger>
+
+    <appender name="PROFILING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/profiling.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>log/profiling.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- These log levels will change appropriately to log database interactions via '-profiling' command line option-->
+    <logger name="org.springframework.jdbc.core" level="warn" additivity="false">
+        <appender-ref ref="PROFILING"/>
+    </logger>
+    <logger name="ai.digital.deploy.profiling" level="warn" additivity="false">
+        <appender-ref ref="PROFILING"/>
+    </logger>
+
+
+    <!--
+        Uncomment the configuration below to have Deployit log generated scripts to log/scripts.log:
+    -->
+<!--
+    <appender name="SCRIPTS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/scripts.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>log/scripts.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.xebialabs.deployit.plugin.generic.scripts" level="trace" additivity="false">
+        <appender-ref ref="SCRIPTS" />
+    </logger>
+
+    <logger name="com.xebialabs.deployit.plugin.python.scripts" level="trace" additivity="false">
+        <appender-ref ref="SCRIPTS" />
+    </logger>
+
+    <logger name="com.xebialabs.deployit.plugin.powershell.scripts" level="trace" additivity="false">
+        <appender-ref ref="SCRIPTS" />
+    </logger>
+-->
+
+</configuration>

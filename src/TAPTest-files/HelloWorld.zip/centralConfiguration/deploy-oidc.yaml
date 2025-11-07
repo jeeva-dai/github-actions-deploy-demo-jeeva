@@ -1,0 +1,14 @@
+deploy.security:
+  auth:
+    providers:
+      oidc:
+        loginMethodDescription:
+        clientId: "0oa2j3uvv7deP5APa0h8"
+        clientSecret: "TlD3sP_6Gq734nHYAzbbgOzM5TAP2Q8dWoD-9_TvkIsaj7qa_XTvqvFCIsXes2et"
+        issuer: "https://biogen.oktapreview.com/"
+        redirectUri: "http://10.241.1.77:4516"
+        postLogoutRedirectUri: "http://10.241.1.77:4516"
+        rolesClaimName: "APP-Digital-ai-users"
+        userNameClaimName: "preferred_username"
+        emailClaim: "email"
+        fullNameClaim: "name"

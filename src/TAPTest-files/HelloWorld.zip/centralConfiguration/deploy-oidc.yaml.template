@@ -1,0 +1,44 @@
+deploy.security:
+  auth:
+    providers:
+     oidc:
+      loginMethodDescription: "Login Method"
+      clientId:
+      clientSecret:
+      clientAuthMethod:
+      clientAuthJwt:
+        jwsAlg:
+        tokenKeyId:
+        keyStore:
+          path:
+          password:
+          type:
+        key:
+          alias:
+          password:
+      issuer:
+      keyRetrievalUri:
+      accessTokenUri:
+      userAuthorizationUri:
+      logoutUri:
+      redirectUri:
+      postLogoutRedirectUri:
+      rolesClaimName:
+      userNameClaimName:
+      emailClaim:
+      fullNameClaim:
+      idTokenJWSAlg:
+      access-token:
+        issuer:
+        audience:
+        keyRetrievalUri:
+        jwsAlg:
+        secretKey:
+       proxyHost:
+       proxyPort:
+      scopes:
+        -
+
+
+
+
