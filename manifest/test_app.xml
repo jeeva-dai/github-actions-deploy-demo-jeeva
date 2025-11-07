@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<udm.DeploymentPackage version="Test_Pkg" application="Test_App">
+  <application />
+  <orchestrator />
+  <deployables>
+    <iis.ApplicationPoolSpec name="/TAPTestAppPool">
+      <tags>
+        <value>Integration</value>
+      </tags>
+      <managedRuntimeVersion>v4.0</managedRuntimeVersion>
+      <recyclingPeriodicRestartSchedule />
+    </iis.ApplicationPoolSpec>
+    <iis.WebContent name="/TAPTest-files" file="/TAPTest-files/HelloWorld.zip">
+      <tags />
+      <scanPlaceholders>true</scanPlaceholders>
+      <preScannedPlaceholders>false</preScannedPlaceholders>
+      <placeholders />
+      <checksum>8f47fea2268bf75152e4b47c87d1707c359545fef09774615c95a72d210d762b</checksum>
+      <fileEncodings>
+        <entry key=".+\.properties">ISO-8859-1</entry>
+      </fileEncodings>
+      <textFileNamesRegexToTranscode>.+\.(cfg | conf | config | ini | properties | props | txt | asp | aspx | htm | html | jsf | jsp | xht | xhtml | sql | xml | xsd | xsl | xslt)</textFileNamesRegexToTranscode>
+      <credentials ref="Configuration/Cloudsmith" />
+      <proxySettings ref="Configuration/ProxyServer" />
+      <isRescanned>false</isRescanned>
+      <targetPath>C:\inetpub\wwwroot\TAPTest</targetPath>
+    </iis.WebContent>
+    <iis.ApplicationSpec name="/test_app_spec">
+      <tags>
+        <value>Integration</value>
+      </tags>
+      <applicationPath>TAPTest</applicationPath>
+      <websiteName>Default Web Site</websiteName>
+      <physicalPath>C:\inetpub\wwwroot\TAPTest</physicalPath>
+      <applicationPoolName>TAPTestPool</applicationPoolName>
+      <authentication />
+    </iis.ApplicationSpec>
+  </deployables>
+  <applicationDependencies />
+  <dependencyResolution>LATEST</dependencyResolution>
+  <undeployDependencies>false</undeployDependencies>
+  <templates />
+  <boundTemplates />
+</udm.DeploymentPackage>
