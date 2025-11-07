@@ -1,0 +1,29 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Add your code retrieval steps here if necessary
+
+    - name: Build DAR package
+      run: |
+        mkdir dar-content
+        cp manifest/test_app.xml dar-content/
+        cp -r src/TAPTest-files/HelloWorld.zip/* dar-content/
+        cd dar-content
+        zip -r ../my-app.dar .
+        cd ..
+
+    - uses: digital-ai/github-actions-deploy@v4.0.0
+      with:
+        xldeploy_url: ${{ vars.SERVERURL }}
+        xldeploy_username: ${{ secrets.USERNAME }}
+        xldeploy_password: ${{ secrets.PASSWORD }}
+        package: my-app.dar
